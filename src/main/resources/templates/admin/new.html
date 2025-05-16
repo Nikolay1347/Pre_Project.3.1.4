@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add user</title>
+</head>
+<body>
+
+<div style="text-align: left; color: blue">
+    <h2>Добавление пользователя</h2>
+</div><br />
+
+<form th:method="POST" th:action="@{/admin/user}" th:object="${user}">
+    <label for ="name">Введите имя: </label>
+    <input  type ="text" th:field="*{username}" id="name">
+    <br/>
+
+    <label for ="age">Введите возраст: </label>
+    <input type ="text" th:field="*{age}" id="age">
+    <br/>
+
+    <label for ="email">Введите почту: </label>
+    <input type ="text" th:field="*{email}" id="email">
+    <br/>
+
+    <label for ="password">Введите пароль: </label>
+    <input type ="text" th:field="*{password}" id="password">
+    <br/>
+
+    <div>
+      <label>Roles:</label>
+        <div th:each="role : ${allRoles}">
+            <input type="checkbox"
+                   th:value="${role.id}"
+                   name="roles"
+                   th:field="*{roles}"
+                   th:checked="${role==user.roles}">
+            <label th:text="${role.name}"></label>
+        </div>
+    </div>
+
+    <label for="active">Активен:</label>
+    <select id="active" th:field="*{active}">
+        <option value="true" th:text="true"></option>
+        <option value="false" th:text="false"></option>
+    </select><br/>
+    <br>
+
+    <button type="submit" >Добавить</button>
+    <br/>
+
+    <form th:method="POST" th:action="@{/logout}" >
+        <input type="submit" value="Сменить пользователя"/>
+    </form>
+
+</form>
+</body>
+</html>
