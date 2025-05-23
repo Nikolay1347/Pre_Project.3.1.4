@@ -1,22 +1,18 @@
 package org.example.role.controllers;
 
-import org.example.role.model.Role;
 import org.example.role.model.User;
 import org.example.role.repositories.RoleRepository;
-import org.example.role.repositories.UserRepository;
 import org.example.role.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.role.service.UserServiceImpl;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
     private final UserService userService;
