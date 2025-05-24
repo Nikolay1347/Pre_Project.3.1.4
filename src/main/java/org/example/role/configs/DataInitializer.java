@@ -41,14 +41,6 @@ public class DataInitializer {
             admin.setRoles(Set.of(adminRole, userRole));
             userRepository.save(admin);
         }
-
-//        if (!userRepository.findByUsername("user").isPresent()) {
-//            User user = new User();
-//            user.setUsername("user");
-//            user.setPassword(passwordEncoder.encode("user"));
-//            user.setActive(true);
-//            user.setRoles(Set.of(userRole));
-//            userRepository.save(user);
-//        }
+        
     }
 }
