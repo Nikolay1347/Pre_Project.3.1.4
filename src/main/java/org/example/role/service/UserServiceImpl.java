@@ -35,16 +35,18 @@ public class UserServiceImpl implements UserService{
         return userRepository.findById(id).orElse(null);
     }
 
-//    @Transactional
-//    @Override
-//    public void updateUserWithRoles(User user, Collection<Long> roleIds) {
-//        if (roleIds != null && !roleIds.isEmpty()) {
-//            Set<Role> roles = new HashSet<>(roleRepository.findAllById(roleIds));
-//            user.setRoles(roles);
-//        }
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        userRepository.save(user);
-//    }
+    @Transactional
+    @Override
+    public void updateUserWithRoles(User updateUser, Collection<Long> roleIds) {
+        if (roleIds != null && !roleIds.isEmpty()) {
+            Set<Role> roles = new HashSet<>(roleRepository.findAllById(roleIds));
+            updateUser.setRoles(roles);
+        }
+        if (!Objects.equals(updateUser.getPassword(), findById(updateUser.getId()).getPassword())) {
+            updateUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
+        }
+        userRepository.save(updateUser);
+    }
 
     @Transactional
     @Override
@@ -54,10 +56,9 @@ public class UserServiceImpl implements UserService{
             user.setRoles(roles);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-
         userRepository.save(user);
     }
+
     @Transactional
     @Override
     public void deleteById(Long id) {

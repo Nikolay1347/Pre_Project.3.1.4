@@ -10,7 +10,7 @@ public interface UserService {
 
     void save(User user, Collection<Long> roleIds);
 
-    //void updateUserWithRoles(User user, Collection<Long> roleIds);
+    void updateUserWithRoles(User user, Collection<Long> roleIds);
 
     User findById(Long id);
 

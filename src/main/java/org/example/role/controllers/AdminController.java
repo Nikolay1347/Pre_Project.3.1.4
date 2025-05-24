@@ -64,8 +64,8 @@ public class AdminController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute("user") User user, @RequestParam(value = "roleIds", required = false) List<Long> roleIds) {
-        userService.save(user, roleIds);
+    public String update(@PathVariable Long id, @ModelAttribute("user") User updateUser, @RequestParam(value = "roleIds", required = false) List<Long> roleIds) {
+        userService.updateUserWithRoles(updateUser, roleIds);
         return "redirect:/admin/";
     }
 }
