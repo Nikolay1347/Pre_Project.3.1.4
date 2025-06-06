@@ -13,6 +13,6 @@ public class UserController {
     @GetMapping("/")
     public String userHome(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("user", user);
-        return "user/home";
+        return "user/User information-page";
     }
 }

@@ -5,6 +5,7 @@ import org.example.role.repositories.RoleRepository;
 import org.example.role.service.UserService;
 import org.example.role.service.UserServiceImpl;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,17 +25,14 @@ public class AdminController {
     }
 
     @GetMapping("/")
-    public String adminHome(Model model) {
+    public String adminHome(@AuthenticationPrincipal User userAdmin, Model model) {
         model.addAttribute("list", userService.findAll());
         model.addAttribute("roles", roleRepository.findAll());
-        return "admin/AllUsers";
-    }
-
-    @GetMapping("/new")
-    public String addUser(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("userAdmin", userAdmin);
         model.addAttribute("allRoles", roleRepository.findAll());
-        return "admin/new";
+        //return "admin/Table";
+        return "admin/Admin panel";
     }
 
     @PostMapping("/user")
@@ -43,29 +41,15 @@ public class AdminController {
         return "redirect:/admin/";
     }
 
-    @GetMapping("/delete")
-    public String deleteUser(Model model) {
-        model.addAttribute("user", new User());
-        return "admin/delete";
-    }
-
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         userService.deleteById(id);
         return "redirect:/admin/";
     }
 
-    @GetMapping("/update/{id}")
-    public String updateUser(@PathVariable Long id, Model model) {
-        User user = userService.findById(id);
-        model.addAttribute("user", user);
-        model.addAttribute("allRoles", roleRepository.findAll());
-        return "admin/update";
-    }
-
-    @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute("user") User updateUser, @RequestParam(value = "roleIds", required = false) List<Long> roleIds) {
-        userService.updateUserWithRoles(updateUser, roleIds);
+    @PostMapping("/update")
+    public String update(@ModelAttribute("item") User updateUser, @RequestParam(value = "role", required = false) List<Long> role) {
+        userService.updateUserWithRoles(updateUser, role);
         return "redirect:/admin/";
     }
 }

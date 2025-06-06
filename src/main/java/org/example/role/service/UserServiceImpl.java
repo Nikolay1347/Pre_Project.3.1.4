@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService{
     @Transactional
     @Override
     public void updateUserWithRoles(User updateUser, Collection<Long> roleIds) {
+        System.out.println(roleIds);
         if (roleIds != null && !roleIds.isEmpty()) {
             Set<Role> roles = new HashSet<>(roleRepository.findAllById(roleIds));
             updateUser.setRoles(roles);

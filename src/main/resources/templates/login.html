@@ -1,33 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 50px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
+
 <body>
-<div style="text-align: left; color: blue">
-    <h2>Авторизация</h2><br />
+<div class="container">
+    <div class="login-container">
+
+    <form th:action="@{/login}" method="post">
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <div class="form-group row">
+            <input type="text" class="form-control" id="username" name="username" placeholder="User">
+            <label for="username"></label>
+        </div>
+        <div class="form-group row">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            <label for="password"></label>
+        </div>
+
+        <div
+                th:if="${param.error}"> <div style="text-align: left; color: red"> Неверное имя или пароль </div>
+        </div>
+
+        <div
+                th:if="${param.logout}"> <div style="text-align: left; color: green"> Вы вышли из системы </div>
+        </div><br>
+
+        <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+    </form>
+</div>
 </div>
 
-
-<form th:action="@{/login}" method="post">
-    <div>
-        <label>Имя пользователя: <input type="text" name="username"/></label>
-    </div><br>
-    <div>
-        <label>Пароль:<span style="display: inline-block; width: 78px"></span><input type="password" name="password"/></label>
-    </div><br>
-
-    <div
-            th:if="${param.error}"> <div style="text-align: left; color: red"> Неверное имя или пароль </div>
-    </div>
-
-    <div
-            th:if="${param.logout}"> <div style="text-align: left; color: green"> Вы вышли из системы </div>
-    </div><br>
-
-    <div>
-        <input type="submit" value="Авторизоваться"/>
-    </div>
-</form>
 </body>
 </html>
