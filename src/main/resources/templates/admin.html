@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Динамическая страница с модальными окнами</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!--  <style>-->
+<!--    body {-->
+<!--      background-color: rgba(248, 249, 250, 0.56);-->
+<!--    } .btn-sidebar {-->
+<!--        background-color: #343a40;-->
+<!--      }-->
+<!--  </style>-->
+</head>
+<body class="bg-body-secondary">  <!-- Цвет фона-->
+
+<!-- Шапка страницы -->
+<nav class="navbar navbar-dark bg-dark justify-content-between px-3">
+  <div class="text-white">
+    <strong id="headerMail">admin@mail.ru</strong>
+    <span class="ml-2">with roles: <strong id="headerRoles">ROLES</strong></span>
+  </div>
+  <button type="button" class="btn btn-outline-light" onclick="logout()">Logout</button>
+</nav>
+
+<!-- Основное содержимое -->
+<div class="container-fluid vh-100 p-0">
+  <div class="row">
+    <!-- Левый столбец -->
+    <div class="col">
+      <div class="p-9">
+        <!-- Содержимое левого столбца -->
+        <div class="col-10 bg-white text-dark vh-100">
+          <a id="leftRole">ROLES</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="col-lg-9">
+      <div class="p-8">
+        <div id="app">
+          <!-- Всё рендерится через JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--------------- МОДАЛЬНОЕ ОКНО ДЛЯ ФОРМ (динамическое) ----------------------------->
+<div class="modal fade" id="dynamicModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" id="modalContent">
+      <!-- Сюда будет загружаться содержимое формы через JavaScript -->
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>
+
+

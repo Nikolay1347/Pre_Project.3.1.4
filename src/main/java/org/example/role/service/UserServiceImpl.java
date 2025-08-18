@@ -15,12 +15,11 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.roleRepository = roleRepository;
     }
 
     @Transactional
@@ -37,25 +36,7 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
-    public void updateUserWithRoles(User updateUser, Collection<Long> roleIds) {
-        System.out.println(roleIds);
-        if (roleIds != null && !roleIds.isEmpty()) {
-            Set<Role> roles = new HashSet<>(roleRepository.findAllById(roleIds));
-            updateUser.setRoles(roles);
-        }
-        if (!Objects.equals(updateUser.getPassword(), findById(updateUser.getId()).getPassword())) {
-            updateUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
-        }
-        userRepository.save(updateUser);
-    }
-
-    @Transactional
-    @Override
-    public void save(User user, Collection<Long> roleIds) {
-        if (roleIds != null && !roleIds.isEmpty()) {
-            Set<Role> roles = new HashSet<>(roleRepository.findAllById(roleIds));
-            user.setRoles(roles);
-        }
+    public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }

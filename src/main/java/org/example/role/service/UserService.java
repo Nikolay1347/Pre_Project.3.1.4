@@ -8,9 +8,7 @@ import java.util.List;
 public interface UserService {
     void deleteById(Long id);
 
-    void save(User user, Collection<Long> roleIds);
-
-    void updateUserWithRoles(User user, Collection<Long> roleIds);
+    void save(User user);
 
     User findById(Long id);
 
