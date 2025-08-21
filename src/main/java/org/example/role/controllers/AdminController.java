@@ -8,15 +8,13 @@ import org.example.role.repositories.RoleRepository;
 import org.example.role.service.RoleService;
 import org.example.role.service.UserService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.web.bind.annotation.*;
 
-import javax.naming.Context;
-import java.security.Principal;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -76,20 +74,19 @@ public class AdminController {
 
     @PutMapping("/users/{id}")
     public ResponseEntity<User> update(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-
         User user = userService.findById(id);
         user.setUsername(userDTO.getUsername());
         user.setAge(userDTO.getAge());
         user.setEmail(userDTO.getEmail());
         user.setActive(userDTO.getActive());
-        if(userDTO.getPassword()!=null) {
-            user.setPassword(userDTO.getPassword());
-        }
+
         Set<Role> roles = userDTO.getRoles().stream()
                 .map(roleService::findByName)
                 .collect(Collectors.toSet());
-        user.setRoles(roles);
-        userService.save(user);
+        if(!roles.isEmpty()) {
+            user.setRoles(roles);
+        }
+        userService.update(user, userDTO.getPassword());
         return ResponseEntity.ok(user);
     }
 

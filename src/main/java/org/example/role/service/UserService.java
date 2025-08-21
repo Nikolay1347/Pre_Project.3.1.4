@@ -10,6 +10,8 @@ public interface UserService {
 
     void save(User user);
 
+    void update(User user, String password);
+
     User findById(Long id);
 
     List<User> findAll();

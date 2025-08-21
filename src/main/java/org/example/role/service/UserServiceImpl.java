@@ -43,6 +43,16 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
+    public void update(User user, String password) {
+
+        if(password != null ) {
+            user.setPassword(passwordEncoder.encode(password));
+        }
+        userRepository.save(user);
+    }
+
+    @Transactional
+    @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
